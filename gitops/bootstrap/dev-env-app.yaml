@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-env
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: environments/dev/env/overlays
+    repoURL: https://github.com/tim-stasse/genai-stack.git
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
